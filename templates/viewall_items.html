@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card with Buttons</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        /* Base styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Centering the cards */
+        body {
+            background-color: #e9ecef;
+            padding: 20px;
+        }
+
+        /* Card styling */
+        .card {
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Image styling to fit all images equally */
+        .card-img-top {
+            height: 200px; /* Fixed height for all images */
+            object-fit: cover; /* Crop and scale to fit */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* Card hover effect */
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Title and text styling */
+        .card h5 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.25em;
+        }
+
+        .card h6 {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        /* Button container */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        /* Button styles */
+        .button-container a {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Individual button colors and hover effects */
+        .add-btn {
+            background-color: #007bff;
+        }
+
+        .add-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .update-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .update-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .button-container a {
+                font-size: 0.85em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            {% for i in itemsdata %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="/static/{{i[2]}}" class="card-img-top img-fluid" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i[1]}}</h5>
+                        <h6 class="card-id">{{i[0]}}</h6>
+                        <div class="button-container">
+                            <a href="{{url_for('view_item', itemid=i[0])}}" class="add-btn">View</a>
+                            <a href="{{url_for('update', itemid=i[0])}}" class="update-btn">Update</a>
+                            <a href="{{url_for('delete', itemid=i[0])}}" class="delete-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

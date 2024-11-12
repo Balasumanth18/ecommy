@@ -1,0 +1,5 @@
+secret_key=b'\xda\x1fl\x80!JF\x9f(0q\xc1\xb9\x1e\xad'
+salt='registerverify'
+# import os
+# os.urandom(15)
+# o/p:- b'\xda\x1fl\x80!JF\x9f(0q\xc1\xb9\x1e\xad'

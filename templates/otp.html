@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        *{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	font-family: 'Open Sans', sans-serif;
+}
+body{
+    background-image:url("https://images4.alphacoders.com/973/973967.jpg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+        .otp-container {
+            background-color: rgba(0, 0, 0, 0.193);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .otp-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: black;
+        }
+        .otp-input-container {
+            margin-bottom: 20px;
+        }
+        .otp-input-container input {
+            padding: 9px;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 8px; 
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .otp-input-container input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .otp-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .otp-container button:hover {
+            background-color: #218838;
+        }
+
+        .otp-container p {
+            margin-top: 10px;
+            color:black;
+            font-size: 14px;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center style="color: red;">{{ message }}</center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<body>
+<div class="otp-container">
+    <h2>Enter OTP</h2>
+    <form  method="POST">
+        <div class="otp-input-container">
+            <input type="text" maxlength="6" name="otp" required>
+        </div>
+        <button   type="submit">Verify OTP</button>
+        <p>Didn't receive the code? <a href="#">Resend</a></p>
+    </form>
+</div>
+</body>
+</html>

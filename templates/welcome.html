@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	font-family: 'Open Sans', sans-serif;
+}
+body{
+    background-image: url("https://www.icegif.com/wp-content/uploads/icegif-5604.gif");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+	padding-top: 9%;
+}
+img{
+	width: 50%;
+	margin-top: 2.5%;
+	margin-bottom: 2.5%;
+}
+.wrapper{
+	width: 100%;
+	padding: 0 10px;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+.r_form_wrap{
+	width: 500px;
+	max-width: 100%;
+}
+.r_form{
+	padding: 40px;
+	border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.193);
+}
+button{
+	margin-bottom: 7px;
+	width: 100%;
+	border: 0;
+	background-color: #28a745;
+	padding: 10px;
+	border-radius: 3px;
+	height: 40px;
+	color:white;
+	cursor: pointer;
+	transition: 0.5s ease;
+}
+button:hover{
+	background-color: #218838;
+}
+    </style>
+</head>
+<body>
+	<div class="wrapper">
+	<div class="r_form_wrap">
+		<div class="r_form">
+			<center>
+				<h1>Welcome Andi</h1>
+				<img src="https://img.clipart-library.com/2/clip-cartoon-gif/clip-cartoon-gif-22.gif" alt="">
+				</center>
+				<a href="{{url_for('panel')}}"><button class="Register" type="submit">Home Page</button></a>
+		</div>
+	</div>
+</div>
+</body>
+</html>

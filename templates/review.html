@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+   <style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f8fc;
+}
+
+.review-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.input-field, .textarea-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.input-field:focus, .textarea-field:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 25px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #f39c12;
+}
+
+.home-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.home-btn:hover {
+    background-color: #0056b3;
+}
+
+   </style>
+</head>
+<body>
+    <form method="post">
+        <div class="review-container">
+            <h2>Submit Your Review</h2>
+    
+            <!-- Review Title -->
+            <label for="review-title">Review Title:</label>
+            <input type="text" id="review-title" class="input-field" name="title" placeholder="Enter review title">
+    
+            <!-- Description -->
+            <label for="review-description">Description:</label>
+            <textarea id="review-description" class="textarea-field" name="review" rows="4" placeholder="Enter your review"></textarea>
+    
+            <!-- Rating -->
+            <label for="review-rating">Rating:</label>
+            <div class="rating">
+                <input type="radio" name="stars" id="star5" value="5"><label for="star5">★</label>
+                <input type="radio" name="stars" id="star4" value="4"><label for="star4">★</label>
+                <input type="radio" name="stars" id="star3" value="3"><label for="star3">★</label>
+                <input type="radio" name="stars" id="star2" value="2"><label for="star2">★</label>
+                <input type="radio" name="stars" id="star1" value="1"><label for="star1">★</label>
+            </div>
+    
+            <!-- Go to Home Button -->
+            <button class="home-btn">Go to Home</button>
+            <button class="home-btn">Submit</button>
+        </div>
+    </form>
+</body>
+</html>

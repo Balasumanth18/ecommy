@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Navbar Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            position: sticky;
+            background-color: #2c3e50;
+            /* Background color for the navbar */
+            display: flex;
+            top: 0;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 1;
+        }
+
+        .navbar-left,
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-right: 10px;
+            /* Space between items */
+        }
+
+        .nav-item:hover {
+            background-color: #34495e;
+            color: black;
+            border-radius: 4px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .dropbtn {
+            background-color: #2c3e50;
+            color: white;
+            padding: 14px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #34495e;
+            /* Hover background for dropdown button */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .profile {
+            margin-right: 10px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .search-bar input {
+            padding: 8px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            border: none;
+            background-color: #e74c3c;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .search-bar button:hover {
+            background-color: #c0392b;
+        }
+
+        .card {
+            border: none;
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .carded {
+            width: 100%;
+            padding: 15px;
+            margin: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .carded-content h3 {
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .carded-content p {
+            font-size: 1rem;
+            color: #777;
+            margin: 4px 0;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        #quantity {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .carded-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .add-cart-btn,
+        .buy-now-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-cart-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .add-cart-btn:hover {
+            background-color: #218838;
+        }
+
+        .buy-now-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center style="color: red;">{{ message }}</center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="#" alt="hi">
+            <a href="#" class="nav-item">Home</a>
+            <a href="#" class="nav-item">Contact us</a>
+            {% if session.get('user') %}
+            <a href="{{url_for('viewcart')}}" class="nav-item">View cart</a>
+            <a href="{{url_for('orders')}}" class="nav-item">My Orders</a>
+            {% endif %}
+            <div class="dropdown">
+                <button class="dropbtn">Category</button>
+                <div class="dropdown-content">
+                    <a href="{{url_for('dashboard',ctype='home')}}">Home</a>
+                    <a href="{{url_for('dashboard',ctype='grocery')}}">Grocery</a>
+                    <a href="{{url_for('dashboard',ctype='fashion')}}">Fashion</a>
+                    <a href="{{url_for('dashboard',ctype='electronics')}}">Electronics</a>
+                </div>
+            </div>
+            {% if not session.get('user') %}
+            <div class="dropdown">
+                <button class="dropbtn">Signup</button>
+                <div class="dropdown-content">
+                    <a href="{{url_for('admin_signup')}}">Admin Signup</a>
+                    <a href="{{url_for('user_signup')}}">User Signup</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Login</button>
+                <div class="dropdown-content">
+                    <a href="{{url_for('admin_login')}}">Admin login</a>
+                    <a href="{{url_for('user_login')}}">User Login</a>
+                </div>
+            </div>
+            {% endif %}
+            {% if session.get('user') %}
+            <a href="{{url_for('userlogout')}}" class="nav-item">Logout</a>
+            {% endif %}
+        </div>
+        <div class="navbar-right">
+            <p style="color: white; font-size: small;">{{session.get('user')}}</p>
+            <a href="#" class="profile nav-item"> Profile</a>
+            <form action="{{url_for('search')}}" method="post">
+                <div class="search-bar">
+                    <input type="text" name="search" placeholder="Search...">
+                    <button>Search</button>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <!-- <div class="card-deck mt-3">
+        <div class="card">
+            <img src="https://images.news18.com/ibnlive/uploads/2024/04/img-2-2024-04-03t144922.595-2024-04-1e69a833f14b7b92078759b84ec60b16-3x2.jpg"
+                class="card-img-top" alt="...">
+        </div>
+        <div class="card">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjBka6s8J6hzoqER06-FrQWyNw1JRqJRzhGIsgIU7UHXSTUpQnII6A4wJ2THaPJ755T37kogr22HrouqGcg7eu5H5LGdiDUFLaeD5YMIkMOmEObrjakTnl5s9MvbggkI7c1YXTYM5JmyYKalyI7BoVbmHPgaFlrPf595DRLoJ6GpPyCKVyNJUDvBK3-qg"
+                class="card-img-top" alt="...">
+        </div>
+        <div class="card">
+            <img src="https://i.pinimg.com/1200x/0d/9d/d7/0d9dd73adc30f529d3e9a1715d9cdb5b.jpg" class="card-img-top"
+                alt="...">
+        </div>
+    </div> -->
+    <div class="container">
+        <div class="row">
+            {% if itemsdata %}
+            {% for i in itemsdata %}
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="carded">
+                    <img src="/static/{{i[2]}}" alt="Product Image" class="product-image">
+                    <div class="carded-content">
+                        <h3>{{i[1]}}</h3>
+                        <p>{{i[4]}}</p>
+                        <p>price:{{i[3]}}</p>
+                        <form method="post" action="{{url_for('pay',itemid=i[0],name=i[1],price=i[3])}}">
+                        <div class="quantity-container">
+                            <label for="quantity">Quantity:</label>
+                            <select id="quantity" name="qyt">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="carded-buttons">
+                        <a href="{{url_for('addcart', itemid=i[0])}}" class="add-cart-btn">Add to Cart</a>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
