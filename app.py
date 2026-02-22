@@ -17,20 +17,20 @@ RAZORPAY_KEY_SECRET='2nb93bHorsUhAMuzIQRM1aSC'
 client=razorpay.Client(auth=(RAZORPAY_KEY_ID,RAZORPAY_KEY_SECRET))
 app.secret_key=b'\xda\x1fl\x80!JF\x9f(0q\xc1\xb9\x1e\xad'
 Session(app)
-#mydb=mysql.connector.connect(host='localhost',user='root',password='Sumanth@18',db='acommy')
+mydb=mysql.connector.connect(host='localhost',user='root',password='Sumanth@18',db='acommy')
 user=os.environ.get('RDS_USERNAME')
 dg=os.environ.get('RDS_DB_NAME')
 password=os.environ.get('RDS_PASSWORD')
 host=os.environ.get('RDS_HOSTNAME')
 port=os.environ.get('RDS_PORT')
-with mysql.connector.connect(host=host,user=user,port=port,password=password,db=db) as conn:
-    cursor=conn.cursor()
-    cursor.execute("CREATE TABLE if not exists user (user_id int unsigned NOT NULL AUTO_INCREMENT,user_name varchar(100) NOT NULL,password varbinary(100) NOT NULL,email varchar(50) NOT NULL,address text,gender enum('male','female') DEFAULT NULL,PRIMARY KEY (user_id),UNIQUE KEY email (email))")
-    cursor.execute("CREATE TABLE admin (admin_name varchar(100) NOT NULL,email varchar(50) NOT NULL,password varbinary(100) NOT NULL,image_name varchar(10) DEFAULT NULL,address tinytext,admin_id int NOT NULL AUTO_INCREMENT,PRIMARY KEY (admin_id),UNIQUE KEY email (email))")
-    cursor.execute(" CREATE TABLE items(itemsid binary(16) NOT NULL,item_name longtext NOT NULL,description longtext NOT NULL,category enum('electronics','home','fashion','grocery') DEFAULT NULL,price bigint DEFAULT NULL,quantity int DEFAULT NULL,image_name varchar(10) NOT NULL,added_by int DEFAULT NULL,PRIMARY KEY (itemsid),KEY added_by (added_by),CONSTRAINT items_ibfk_1 FOREIGN KEY (added_by) REFERENCES admin (admin_id))")
-    cursor.execute("CREATE TABLE review(r_id int NOT NULL AUTO_INCREMENT,review_text text,itemid binary(16) DEFAULT NULL,added_by int unsigned DEFAULT NULL,rating enum('1','2','3','4','5') DEFAULT NULL,created_at datetime DEFAULT CURRENT_TIMESTAMP,title text,PRIMARY KEY (r_id),KEY itemid (itemid),KEY added_by (added_by),CONSTRAINT review_ibfk_1 FOREIGN KEY (itemid) REFERENCES items (itemsid),CONSTRAINT review_ibfk_2 FOREIGN KEY (added_by) REFERENCES user (user_id))")
-    cursor.execute(" CREATE TABLE orders (order_id bigint NOT NULL AUTO_INCREMENT,itemid binary(16) DEFAULT NULL,item_name longtext,qyt int DEFAULT NULL,total_price bigint DEFAULT NULL,user int unsigned DEFAULT NULL,PRIMARY KEY (order_id),KEY itemid (itemid),KEY user (user),CONSTRAINT orders_ibfk_1 FOREIGN KEY (itemid) REFERENCES items (itemsid),CONSTRAINT orders_ibfk_2 FOREIGN KEY (user) REFERENCES user (user_id))")
-mysql.connector.connect(host=host,user=user,port=port,password=password,db=db)
+# with mysql.connector.connect(host=host,user=user,port=port,password=password,db=db) as conn:
+#     cursor=conn.cursor()
+#     cursor.execute("CREATE TABLE if not exists user (user_id int unsigned NOT NULL AUTO_INCREMENT,user_name varchar(100) NOT NULL,password varbinary(100) NOT NULL,email varchar(50) NOT NULL,address text,gender enum('male','female') DEFAULT NULL,PRIMARY KEY (user_id),UNIQUE KEY email (email))")
+#     cursor.execute("CREATE TABLE if not exists admin (admin_name varchar(100) NOT NULL,email varchar(50) NOT NULL,password varbinary(100) NOT NULL,image_name varchar(10) DEFAULT NULL,address tinytext,admin_id int NOT NULL AUTO_INCREMENT,PRIMARY KEY (admin_id),UNIQUE KEY email (email))")
+#     cursor.execute(" CREATE TABLE if not exists items(itemsid binary(16) NOT NULL,item_name longtext NOT NULL,description longtext NOT NULL,category enum('electronics','home','fashion','grocery') DEFAULT NULL,price bigint DEFAULT NULL,quantity int DEFAULT NULL,image_name varchar(10) NOT NULL,added_by int DEFAULT NULL,PRIMARY KEY (itemsid),KEY added_by (added_by),CONSTRAINT items_ibfk_1 FOREIGN KEY (added_by) REFERENCES admin (admin_id))")
+#     cursor.execute("CREATE TABLE if not exists review(r_id int NOT NULL AUTO_INCREMENT,review_text text,itemid binary(16) DEFAULT NULL,added_by int unsigned DEFAULT NULL,rating enum('1','2','3','4','5') DEFAULT NULL,created_at datetime DEFAULT CURRENT_TIMESTAMP,title text,PRIMARY KEY (r_id),KEY itemid (itemid),KEY added_by (added_by),CONSTRAINT review_ibfk_1 FOREIGN KEY (itemid) REFERENCES items (itemsid),CONSTRAINT review_ibfk_2 FOREIGN KEY (added_by) REFERENCES user (user_id))")
+#     cursor.execute(" CREATE TABLE if not exists orders (order_id bigint NOT NULL AUTO_INCREMENT,itemid binary(16) DEFAULT NULL,item_name longtext,qyt int DEFAULT NULL,total_price bigint DEFAULT NULL,user int unsigned DEFAULT NULL,PRIMARY KEY (order_id),KEY itemid (itemid),KEY user (user),CONSTRAINT orders_ibfk_1 FOREIGN KEY (itemid) REFERENCES items (itemsid),CONSTRAINT orders_ibfk_2 FOREIGN KEY (user) REFERENCES user (user_id))")
+# mydb=mysql.connector.connect(host=host,user=user,port=port,password=password,db=db)
 @app.route('/')
 def home():
     return render_template('welcome.html')
@@ -513,7 +513,7 @@ def search():
         else:
             flash('Result not found')
     return render_template('panel.html')     
-@app.route('/billdetails/<ordid>.pdf')
+#@app.route('/billdetails/<ordid>.pdf')
 # def invoice(ordid):
 #     if session.get('user'):
 #         cursor=mydb.cursor(buffered=True)
@@ -533,6 +533,7 @@ def search():
 #         response=Response(pdf,content_type='application/pdf')
 #         response.headers['Content-Disposition']='inline:filename=output.pdf'
 #         return response
-if __name__=='main':
-    app.run()
+if __name__=='__main__':
+    app.run(debug=True)
+    #app.run()
 # app.run(debug=True)
